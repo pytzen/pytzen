@@ -1,0 +1,12 @@
+{
+    "str_input": "some_input",
+    "int_input": 10,
+    "list_input": [
+        "item1",
+        "item2"
+    ],
+    "dict_input": {
+        "key1": "value1",
+        "key2": "value2"
+    }
+}
