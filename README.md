@@ -4,7 +4,11 @@
 
 ![pytzen.github.io](https://pablo.haus/concepts/pytzen-github-io.png)
 
+![Static Badge](https://img.shields.io/badge/pytzen-v.0.9.15-white)
+
 [pablo.haus](https://pablo.haus): author's landpage
+
+[github.com/pytzen/pytzen/blob/main/src/pytzen/__init__.py](https://github.com/pytzen/pytzen/blob/main/src/pytzen/__init__.py): source code
 
 [github.com/pytzen/pytzen/blob/main/docs/doc.ipynb](https://github.com/pytzen/pytzen/blob/main/docs/doc.ipynb): `pytzen` basic usage notebook
 
