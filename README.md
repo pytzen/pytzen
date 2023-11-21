@@ -6,36 +6,203 @@
 
 [pablo.haus](https://pablo.haus): author's landpage
 
-[github.com/pytzen/pytzen/blob/main/src/pytzen/_\_init__.py](https://github.com/pytzen/pytzen/blob/main/src/pytzen/__init__.py): source code
-
 [github.com/pytzen/pytzen/blob/main/docs/doc.ipynb](https://github.com/pytzen/pytzen/blob/main/docs/doc.ipynb): `pytzen` basic usage notebook
 
-## Inspiration
-Inspired by Ikigai, Kaizen, Pomodoro Technique, Hara Hachi Bu, Shoshin, Wabi-sabi.
-
-### Minimalistic Principles
-**Simplicity**: This is the core of minimalism. Whether it's design, writing, or lifestyle, the focus is on simplicity. It's about removing the unnecessary and focusing on what truly matters.
-
-**Clarity**: Everything in minimalism should be easily understood. In design, this often means using straightforward graphics and concise text.
-
-**Functionality**: Every element should have a purpose. If it doesn't add value or function, it's often removed in a minimalist approach.
-
-**Limitation**: This could mean limiting colors in a design, words in writing, or possessions in a minimalist lifestyle.
-
-**Harmony**: Even though there might be fewer elements, they should work harmoniously together.
-
-**Intentionality**: Every choice made should be deliberate. Minimalism isn't about deprivation, but rather making intentional decisions.
-
-### Python Minimalistic Code
-- Objects names and type hints are documentation.
-- Docstrings for classes and methods in all-in-one paragraph.
-- Reduce classes and methods to its minimal functionality.
-
-## Usage & Limitations Overview
-
-### Disclaimer
+## Disclaimer
 This library is offered 'as-is' with **no official support, maintenance, or warranty**. Primarily, `pytzen` is an experimentation, which may not be apt for production settings. Users are encouraged to delve into the library but should note that the developers won't actively address arising issues.
 
-### Usage Caution
+## Usage Caution
 `pytzen` is primarily intended for prototyping, such as in Proof-of-Concept (POC) or Minimum Viable Product (MVP) stages. We are not liable for issues arising from the library's usage in production environments. Before considering any wider implementation, users should extensively test and vet the library in a safe, controlled environment.
+
+## Source Code
+```
+import json
+from datetime import datetime
+from dataclasses import dataclass, field
+
+
+class MetaType(type):
+    """Metaclass for ProtoType class. It is responsible for adding the 
+    meta_attr attribute to the class and initializing the ProtoType 
+    class.
+    
+    Methods:
+        __new__: Adds the meta_attr attribute to the class.
+        __call__: Initializes the ProtoType class.
+        log: Adds a message to the log attribute.
+        store: Adds a value to the store attribute.
+        close: Closes the class and stores the data.
+    """
+
+    def __new__(cls, name, bases, attrs) -> type:
+        """Adds log, store and close methods to the class.
+        
+        Args:
+            name: Class name.
+            bases: Class bases.
+            attrs: Class attributes.
+        
+        Returns:
+            new_cls: Class with the new methods.
+        """
+
+        attrs['log'] = cls.log
+        attrs['store'] = cls.store
+        attrs['close'] = cls.close
+        new_cls = super().__new__(cls, name, bases, attrs)
+
+        return new_cls
+    
+
+    def __call__(self, *args, **kwargs) -> object:
+        """Initializes the ProtoType class. It is called when the 
+        derived class is instantiated.
+        
+        Args:
+            *args: Arguments.
+            **kwargs: Keyword arguments.
+        
+        Returns:
+            object: Instance of the derived class.
+        """
+
+        ProtoType.__init__(self)
+
+        return super().__call__(*args, **kwargs)
+    
+
+    @classmethod
+    def log(cls, message, stdout=True, write=True) -> None:
+        """Adds a message to the log attribute. The message is stored 
+        with the current timestamp.
+        
+        Args:
+            message: Message to be stored.
+            stdout: If True, the message is printed.
+            write: If True, the message is stored.
+
+        Returns:
+            None
+        """
+
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
+        if write:
+            ProtoType.data.log[timestamp] = message
+        if stdout:
+            print(f'{timestamp}: {message}')
+
+
+    @classmethod
+    def store(cls, name, value) -> None:
+        """Adds a value to the store attribute.
+        
+        Args:
+            name: Name of the value.
+            value: Value to be stored.
+        
+        Returns:
+            None
+        """
+
+        ProtoType.data.store[name] = value
+    
+
+    @classmethod
+    def close(cls) -> None:
+        """Closes the classes and stores the pipeline information. It 
+        must be called after the last derived class is used.
+        
+        Returns:
+            None
+        """
+
+        pack = {
+            'dataclasses.json': ProtoType.data.classes,
+            'log.json': ProtoType.data.log,
+            'store.json': ProtoType.data.store,
+        }
+        for k, v in pack.items():
+            with open(k, 'w') as json_file:
+                json.dump(v, json_file, indent=4)
+
+
+
+class ProtoType(metaclass=MetaType):
+    """Base class for all derived classes. It is responsible for storing 
+    the pipeline information.
+    
+    Attributes:
+        class_path: Path of the class.
+        config: Configuration file.
+        data: Pipeline information.
+    
+    Methods:
+        __init__: Initializes the class.
+        __setattr__: Adds an attribute to the class.
+    """
+
+    def __init__(self) -> None:
+        """Initializes the class. It is called when the derived class 
+        is instantiated by the controled behavior of 'MetaType'. 
+        
+        Returns:
+            None
+        """
+
+        self.class_path = f'{self.__module__}.{self.__name__}'
+
+        if not hasattr(ProtoType, 'config'):
+            with open('config.json', 'r') as json_file:
+                config = json.load(json_file)
+            ProtoType.config = type('ConfigurationFile', (), config)
+
+        if not hasattr(ProtoType, 'data'):
+            ProtoType.data = SharedData()
+        ProtoType.data.classes[self.class_path] = {
+            'attributes': {},
+            'methods': [k for k, v in self.__dict__.items() 
+                        if callable(v) and '__' not in k],
+        }
+    
+
+    def __setattr__(self, key, value) -> None:
+        """Adds an attribute to the class. It is called when an 
+        attribute is added to the derived class.
+        
+        Args:
+            key: Attribute name.
+            value: Attribute value.
+            
+        Returns:
+            None
+        """
+
+        setattr(ProtoType.data, key, value)
+        attr_type = str(type(value).__name__)
+        ProtoType.data.classes[self.class_path]\
+            ['attributes'][key] = attr_type
+
+
+@dataclass
+class SharedData:
+    """Dataclass for storing the pipeline information.
+    
+    Attributes:
+        classes: Classes used in the pipeline.
+        log: Log messages.
+        store: Stored values.
+    """
+    classes: dict = field(default_factory=dict)
+    log: dict = field(default_factory=dict)
+    store: dict = field(default_factory=dict)
+    
+
+    def __setattr__(self, key, value) -> None:
+
+        if hasattr(self, key):
+            error = f"Attribute '{key}' already exists and cannot be changed."
+            raise AttributeError(error)
+        else:
+            super().__setattr__(key, value)
+```
 
