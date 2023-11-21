@@ -1,12 +1,4 @@
-<link rel="stylesheet" href="https://pablo.haus/styles.css">
-
 `pytzen` provides a minimal structured approach to data science pipelines, encompassing modularity, automation, and documentation in one package.
-
-![pytzen.github.io](https://pablo.haus/concepts/pytzen-github-io.png)
-
-[pablo.haus](https://pablo.haus): author's landpage
-
-[github.com/pytzen/pytzen/blob/main/src/pytzen/_\_init__.py](https://github.com/pytzen/pytzen/blob/main/src/pytzen/__init__.py): source code
 
 [github.com/pytzen/pytzen/blob/main/docs/doc.ipynb](https://github.com/pytzen/pytzen/blob/main/docs/doc.ipynb): `pytzen` basic usage notebook
 
