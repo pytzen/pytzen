@@ -1,7 +1,5 @@
 `pytzen` provides a minimal structured approach to data science pipelines, encompassing modularity, automation, and documentation in one package.
 
-[github.com/.../doc.ipynb](https://github.com/pytzen/pytzen/blob/main/docs/doc.ipynb): `pytzen` basic usage notebook
-
 ## Disclaimer
 This library is offered 'as-is' with **no official support, maintenance, or warranty**. Primarily, `pytzen` is an experimentation, which may not be apt for production settings. Users are encouraged to delve into the library but should note that the developers won't actively address arising issues.
 
