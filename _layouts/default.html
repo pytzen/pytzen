@@ -12,11 +12,13 @@
         <h1>{{ site.page_name }}</h1>
         <p>{{ site.page_description }}</p>
     </div>
+    <hr>
     <div class="image-container">
         <div class="image-wrapper">
             <img src="https://pablo.haus/concepts/{{ site.github.repository_name }}.png" alt="{{ site.github.repository_name }} concept">
         </div>
     </div>
+    <hr>
     <div class="text-container">
         <p><a href="https://pablo.haus">pablo.haus</a>: author's landing page</p>
         <p><a href="https://github.com/pytzen/{{ site.github.repository_name }}">github</a>: {{ site.page_name }} source code</p>
@@ -27,7 +29,6 @@
         {% endfor %}
         <hr>
         {{ content }}
-        <hr>
     </div>
 </body>
 </html>
