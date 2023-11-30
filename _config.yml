@@ -1,6 +1,0 @@
-page_name: "pytzen.com"
-page_description: "minimalist design pattern for data science"
-page_links:
-  - name: "github.com/…/doc.ipynb"
-    url: "https://github.com/pytzen/pytzen/blob/main/docs/doc.ipynb"
-    description: "pytzen basic usage notebook"
