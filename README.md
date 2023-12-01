@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="https://pablo.haus/minimal.css">
+<link rel="stylesheet" href="minimal.css">
 
 An open research on Python Engineering.
 
