@@ -1,11 +1,12 @@
 <link rel="stylesheet" href="minimal.css">
 
-An open research on Python Engineering.
+[haus](https://pablo.haus) > [pytzen.com](https://pytzen.com): An open research on Python Engineering.
 
-[pablo.haus](https://pablo.haus): Author's landing page.  
+## Links
 [github.com/…/doc.ipynb](https://github.com/pytzen/pytzen/blob/main/docs/doc.ipynb): PYTZEN basic usage notebook.  
 [docs](https://github.com/pytzen/pytzen/wiki): Articles, documentation and 'pytzen.com' repository files.  
 
+## PYTZEN Package
 PYTZEN provides a minimal structured approach to data science pipelines, encompassing modularity, automation, and documentation in one package.
 
 ## Disclaimer
