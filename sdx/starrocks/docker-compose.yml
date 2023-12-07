@@ -10,11 +10,10 @@ services:
     image: mysql
     environment:
       MYSQL_ROOT_PASSWORD: my-secret-pw
-      MYSQL_DATABASE: mydatabase
     ports:
       - "3306:3306"
     volumes:
-      - mysql_data:/var/lib/mysql
+      - ./mysql_data:/var/lib/mysql
 
   pyspark:
     image: jupyter/pyspark-notebook
