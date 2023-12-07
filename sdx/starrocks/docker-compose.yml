@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  starrocks:
+    image: registry.starrocks.io/starrocks/allin1-ubuntu
+    ports:
+      - "9030:9030"
+    container_name: starrocks_container
+
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+      MYSQL_DATABASE: mydatabase
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  pyspark:
+    image: jupyter/pyspark-notebook
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./notebooks:/home/jovyan/work
+    environment:
+      - PYSPARK_PYTHON=python3
+
+volumes:
+  mysql_data:
