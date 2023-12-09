@@ -1,0 +1,31 @@
+{
+    "tools.injection.CSVLoader": {
+        "attributes": {
+            "spark": "SparkSession",
+            "header": "bool",
+            "infer_schema": "bool",
+            "df": "DataFrame"
+        },
+        "methods": [
+            "load_as_dataframe",
+            "retrive_data_info",
+            "inject",
+            "log",
+            "store",
+            "close"
+        ]
+    },
+    "tools.preprocess.TextProcessor": {
+        "attributes": {
+            "df_stop": "DataFrame",
+            "df_tfidf": "DataFrame"
+        },
+        "methods": [
+            "remove_stop_words",
+            "apply_tf_idf",
+            "log",
+            "store",
+            "close"
+        ]
+    }
+}
