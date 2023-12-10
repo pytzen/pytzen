@@ -1,33 +1,40 @@
 version: '3.8'
 
+# Network configuration for the containers
 networks:
   mynetwork:
     driver: bridge
 
+# Service definitions
 services:
+  # StarRocks service configuration
   starrocks:
-    image: registry.starrocks.io/starrocks/allin1-ubuntu
+    image: registry.starrocks.io/starrocks/allin1-ubuntu # Docker image to use for StarRocks
     ports:
-      - "9030:9030"
+      - "9030:9030" # Map port 9030 on the host to port 9030 on the container
     networks:
-      - mynetwork
-    container_name: starrocks_container
+      - mynetwork # Attach the container to 'mynetwork'
+    container_name: starrocks_container # Name of the container
 
+  # MySQL service configuration
   mysql:
-    image: mysql
+    image: mysql # Docker image to use for MySQL
     environment:
-      MYSQL_ROOT_PASSWORD: 'your_mysql_root_password'
+      MYSQL_ROOT_PASSWORD: 'your_mysql_root_password' # Set the root password for MySQL
     networks:
-      - mynetwork
-    command: --default-authentication-plugin=mysql_native_password
+      - mynetwork # Attach the container to 'mynetwork'
+    command: --default-authentication-plugin=mysql_native_password # Set MySQL authentication plugin
     ports:
-      - "3306:3306"
+      - "3306:3306" # Map port 3306 on the host to port 3306 on the container
     volumes:
-      - ./mysql_data:/var/lib/mysql
+      - ./mysql_data:/var/lib/mysql # Mount a volume for MySQL data persistence
+    container_name: mysql_container
 
+# Volume definitions
 volumes:
-  mysql_data:
+  mysql_data: # Named volume for storing MySQL data
 
+# Network definitions (repeated, but Docker Compose will merge them)
 networks:
   mynetwork:
     driver: bridge
