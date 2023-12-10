@@ -1,0 +1,1 @@
+mysql -h starrocks -P 9030 -uroot --prompt="StarRocks > "
