@@ -1,5 +1,0 @@
-{
-    "2023-12-12 16:56:03.786520": "Injecting CSV file into the pipeline.",
-    "2023-12-12 16:56:07.069520": "Removing stop words from the DataFrame.",
-    "2023-12-12 16:56:07.566905": "Applying TF-IDF transformation on the DataFrame."
-}
