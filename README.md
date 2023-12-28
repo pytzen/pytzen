@@ -6,7 +6,7 @@ This library is offered 'as-is' with **no official support, maintenance, or warr
 
 ## Usage Caution
 PYTZEN is primarily intended for prototyping, such as in Proof-of-Concept (POC) or Minimum Viable Product (MVP) stages. We are not liable for issues arising from the library's usage in production environments. Before considering any wider implementation, users should extensively test and vet the library in a safe, controlled environment.  
-(Jupyter Notebook Sample)[https://github.com/pytzen/pytzen/blob/main/docs/doc.ipynb]
+[Jupyter Notebook Sample](https://github.com/pytzen/pytzen/blob/main/docs/doc.ipynb)
 
 ## Source Code
 ```python
