@@ -1,16 +1,20 @@
 ## PYTZEN Package
-PYTZEN provides a minimal structured approach to data science pipelines, encompassing modularity, automation, and documentation in one package.
+PYTZEN provides a minimal structured approach to data science pipelines, encompassing modularity, automation, and documentation in one package. It aims to offer a concise structure to study meta programming.
 
 ## Disclaimer
 This library is offered 'as-is' with **no official support, maintenance, or warranty**. Primarily, PYTZEN is an experimentation, which may not be apt for production settings. Users are encouraged to delve into the library but should note that the developers won't actively address arising issues.
 
 ## Usage Caution
-PYTZEN is primarily intended for prototyping, such as in Proof-of-Concept (POC) or Minimum Viable Product (MVP) stages. We are not liable for issues arising from the library's usage in production environments. Before considering any wider implementation, users should extensively test and vet the library in a safe, controlled environment.  
-[Jupyter Notebook Sample](https://github.com/pytzen/pytzen/blob/main/docs/doc.ipynb)
+PYTZEN is primarily intended for prototyping, such as in Proof-of-Concept (POC) or Minimum Viable Product (MVP) stages. We are not liable for issues arising from the library's usage in production environments. Before considering any wider implementation, users should extensively test and vet the library in a safe, controlled environment.
+
+## Google Colab Studies and Samples
+- [Python Language Blueprint](https://colab.research.google.com/drive/1lGdLdCpbeAUzasSsYXPkoPzZAWjW4hHK?usp=sharing)
+- [Package Usage](https://github.com/pytzen/pytzen/blob/main/docs/doc.ipynb)
 
 ## Source Code
 ```python
 import json
+import os
 from datetime import datetime
 from dataclasses import dataclass, field
 
@@ -27,7 +31,7 @@ class MetaType(type):
         store: Adds a value to the store attribute.
         close: Closes the class and stores the data.
     """
-
+    DIR = None
     def __new__(cls, name, bases, attrs) -> type:
         """Adds log, store and close methods to the class.
         
@@ -59,7 +63,7 @@ class MetaType(type):
         Returns:
             object: Instance of the derived class.
         """
-
+        ProtoType.DIR = MetaType.DIR
         ProtoType.__init__(self)
 
         return super().__call__(*args, **kwargs)
@@ -116,7 +120,8 @@ class MetaType(type):
             'store.json': ProtoType.data.store,
         }
         for k, v in pack.items():
-            with open(k, 'w') as json_file:
+            path = os.path.join(MetaType.DIR, k)
+            with open(path, 'w') as json_file:
                 json.dump(v, json_file, indent=4)
 
 
@@ -134,7 +139,7 @@ class ProtoType(metaclass=MetaType):
         __init__: Initializes the class.
         __setattr__: Adds an attribute to the class.
     """
-
+    DIR = None
     def __init__(self) -> None:
         """Initializes the class. It is called when the derived class 
         is instantiated by the controled behavior of 'MetaType'. 
@@ -142,11 +147,11 @@ class ProtoType(metaclass=MetaType):
         Returns:
             None
         """
-
         self.class_path = f'{self.__module__}.{self.__name__}'
 
         if not hasattr(ProtoType, 'config'):
-            with open('config.json', 'r') as json_file:
+            path = os.path.join(ProtoType.DIR, 'config.json')
+            with open(path, 'r') as json_file:
                 config = json.load(json_file)
             ProtoType.config = type('ConfigurationFile', (), config)
 

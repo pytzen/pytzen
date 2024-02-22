@@ -1,4 +1,5 @@
 import json
+import os
 from datetime import datetime
 from dataclasses import dataclass, field
 
@@ -15,7 +16,7 @@ class MetaType(type):
         store: Adds a value to the store attribute.
         close: Closes the class and stores the data.
     """
-
+    DIR = None
     def __new__(cls, name, bases, attrs) -> type:
         """Adds log, store and close methods to the class.
         
@@ -47,7 +48,7 @@ class MetaType(type):
         Returns:
             object: Instance of the derived class.
         """
-
+        ProtoType.DIR = MetaType.DIR
         ProtoType.__init__(self)
 
         return super().__call__(*args, **kwargs)
@@ -104,7 +105,8 @@ class MetaType(type):
             'store.json': ProtoType.data.store,
         }
         for k, v in pack.items():
-            with open(k, 'w') as json_file:
+            path = os.path.join(MetaType.DIR, k)
+            with open(path, 'w') as json_file:
                 json.dump(v, json_file, indent=4)
 
 
@@ -122,7 +124,7 @@ class ProtoType(metaclass=MetaType):
         __init__: Initializes the class.
         __setattr__: Adds an attribute to the class.
     """
-
+    DIR = None
     def __init__(self) -> None:
         """Initializes the class. It is called when the derived class 
         is instantiated by the controled behavior of 'MetaType'. 
@@ -130,11 +132,11 @@ class ProtoType(metaclass=MetaType):
         Returns:
             None
         """
-
         self.class_path = f'{self.__module__}.{self.__name__}'
 
         if not hasattr(ProtoType, 'config'):
-            with open('config.json', 'r') as json_file:
+            path = os.path.join(ProtoType.DIR, 'config.json')
+            with open(path, 'r') as json_file:
                 config = json.load(json_file)
             ProtoType.config = type('ConfigurationFile', (), config)
 
