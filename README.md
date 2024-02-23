@@ -9,7 +9,7 @@ PYTZEN is primarily intended for prototyping, such as in Proof-of-Concept (POC) 
 
 ## Google Colab Studies and Samples
 - [Python Language Blueprint](https://colab.research.google.com/drive/1lGdLdCpbeAUzasSsYXPkoPzZAWjW4hHK?usp=sharing)
-- [Package Usage](https://github.com/pytzen/pytzen/blob/main/docs/doc.ipynb)
+- [Package Usage](https://colab.research.google.com/drive/1jiTvuAazCdxn0N7-Oo7eEpmZJVQHiPeq?usp=sharing)
 
 ## Source Code
 ```python
