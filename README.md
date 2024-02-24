@@ -1,15 +1,8 @@
-## PYTZEN Package
-PYTZEN provides a minimal structured approach to data science pipelines, encompassing modularity, automation, and documentation in one package. It aims to offer a concise structure to study meta programming.
+> PYTZEN is tailored for developers and data scientists to craft data pipelines and delve into metaprogramming. Designed primarily for Proof of Concept (POC) and Minimum Viable Product (MVP) stages, PYTZEN stands out by facilitating the inheritance-driven development of data processing workflows and offering a practical arena for metaprogramming exploration. This experimental tool is aimed at educational purposes, encouraging users to experiment and learn through application. Whether prototyping or learning advanced Python features, PYTZEN offers a structured yet flexible experimentation for innovation and education.
 
-## Disclaimer
-This library is offered 'as-is' with **no official support, maintenance, or warranty**. Primarily, PYTZEN is an experimentation, which may not be apt for production settings. Users are encouraged to delve into the library but should note that the developers won't actively address arising issues.
-
-## Usage Caution
-PYTZEN is primarily intended for prototyping, such as in Proof-of-Concept (POC) or Minimum Viable Product (MVP) stages. We are not liable for issues arising from the library's usage in production environments. Before considering any wider implementation, users should extensively test and vet the library in a safe, controlled environment.
-
-## Google Colab Studies and Samples
-- [Python Language Blueprint](https://colab.research.google.com/drive/1lGdLdCpbeAUzasSsYXPkoPzZAWjW4hHK?usp=sharing)
-- [Package Usage](https://colab.research.google.com/drive/1jiTvuAazCdxn0N7-Oo7eEpmZJVQHiPeq?usp=sharing)
+## Google Colab Docs
+- [Metaprogramming Study](https://study.pytzen.com/)
+- [Package Usage](https://usage.pytzen.com/)
 
 ## Source Code
 ```python
@@ -19,10 +12,14 @@ from datetime import datetime
 from dataclasses import dataclass, field
 
 
+
 class MetaType(type):
     """Metaclass for ProtoType class. It is responsible for adding the 
     meta_attr attribute to the class and initializing the ProtoType 
     class.
+
+    Class Attributes:
+        DIR: Output path where the config.json must be located.
     
     Methods:
         __new__: Adds the meta_attr attribute to the class.
@@ -129,6 +126,9 @@ class MetaType(type):
 class ProtoType(metaclass=MetaType):
     """Base class for all derived classes. It is responsible for storing 
     the pipeline information.
+
+    Class Attributes:
+        DIR: Output path where the config.json must be located.
     
     Attributes:
         class_path: Path of the class.
@@ -180,6 +180,7 @@ class ProtoType(metaclass=MetaType):
         attr_type = str(type(value).__name__)
         ProtoType.data.classes[self.class_path]\
             ['attributes'][key] = attr_type
+
 
 
 @dataclass

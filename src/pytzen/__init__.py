@@ -4,10 +4,14 @@ from datetime import datetime
 from dataclasses import dataclass, field
 
 
+
 class MetaType(type):
     """Metaclass for ProtoType class. It is responsible for adding the 
     meta_attr attribute to the class and initializing the ProtoType 
     class.
+
+    Class Attributes:
+        DIR: Output path where the config.json must be located.
     
     Methods:
         __new__: Adds the meta_attr attribute to the class.
@@ -114,6 +118,9 @@ class MetaType(type):
 class ProtoType(metaclass=MetaType):
     """Base class for all derived classes. It is responsible for storing 
     the pipeline information.
+
+    Class Attributes:
+        DIR: Output path where the config.json must be located.
     
     Attributes:
         class_path: Path of the class.
@@ -165,6 +172,7 @@ class ProtoType(metaclass=MetaType):
         attr_type = str(type(value).__name__)
         ProtoType.data.classes[self.class_path]\
             ['attributes'][key] = attr_type
+
 
 
 @dataclass
