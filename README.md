@@ -6,13 +6,8 @@
 - Attributes values optionally stored in JSON
 - Logger events optionally stored in JSON (whether printed or not)
 - Documentation for each class is stored in JSON
-- In the same namespace:
-    - Attributes are immutable
-    - Attributes must have a unique name
-- You can create multiple namespaces
-    - `import pytzen as extract`
-    - `import pytzen as transform`
-    - `import pytzen as load`
+- Attributes are immutable
+- Attributes must have a unique name
 
 ## Google Colab Docs
 - [Metaprogramming Study](https://study.pytzen.com/)
