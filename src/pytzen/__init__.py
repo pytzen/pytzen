@@ -1,5 +1,8 @@
 import json
+import sys
+import importlib.util
 import os
+from types import ModuleType
 from datetime import datetime
 from dataclasses import dataclass, field
 
@@ -112,6 +115,15 @@ class MetaType(type):
             path = os.path.join(MetaType.DIR, k)
             with open(path, 'w') as json_file:
                 json.dump(v, json_file, indent=4)
+    
+
+
+def new_namespace(namespace: str):
+    pytzen = importlib.util.find_spec('pytzen')
+    vars()[namespace] = importlib.util.module_from_spec(pytzen)
+    pytzen.loader.exec_module(vars()[namespace])
+    sys.modules[namespace] = vars()[namespace]
+    return vars()[namespace]
 
 
 
