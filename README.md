@@ -1,4 +1,18 @@
-> PYTZEN is tailored for developers and data scientists to craft data pipelines and delve into metaprogramming. Designed primarily for Proof of Concept (POC) and Minimum Viable Product (MVP) stages, PYTZEN stands out by facilitating the inheritance-driven development of data processing workflows and offering a practical arena for metaprogramming exploration. This experimental tool is aimed at educational purposes, encouraging users to experiment and learn through application. Whether prototyping or learning advanced Python features, PYTZEN offers a structured yet flexible experimentation for innovation and education.
+> PYTZEN is designed for developers and data scientists to sketch out data pipelines and delve into metaprogramming. Primarily designed for the Proof of Concept (POC) and Minimum Viable Product (MVP) stages, PYTZEN stands out by facilitating inheritance-driven development of data processing workflows and offering a practical arena for exploring metaprogramming. This experimental tool aims for educational purposes, encouraging users to learn through experimentation and application. Whether for prototyping or learning advanced Python features, PYTZEN offers structured yet flexible experimentation for both innovation and education.
+
+## Inherited Automatic Features
+- JSON configuration attributes
+- @dataclass features
+- Attributes values optionally stored in JSON
+- Logger events optionally stored in JSON (whether printed or not)
+- Documentation for each class is stored in JSON
+- In the same namespace:
+    - Attributes are immutable
+    - Attributes must have a unique name
+- You can create multiple namespaces
+    - `import pytzen as extract`
+    - `import pytzen as transform`
+    - `import pytzen as load`
 
 ## Google Colab Docs
 - [Metaprogramming Study](https://study.pytzen.com/)
