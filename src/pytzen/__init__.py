@@ -8,7 +8,32 @@ from dataclasses import dataclass, field
 
 
 DIR = os.getcwd()
+
+
 def new_namespace(namespace: str):
+    """
+    Creates and returns a new namespace as a module, isolated from the 
+    original pytzen package.
+
+    This function dynamically imports the pytzen package, then creates a 
+    new module object based on the pytzen specification. It sets the 
+    newly created module's MetaType.NAMESPACE attribute to the provided 
+    namespace string. The new namespace is also added to the 
+    sys.modules dictionary, making it recognized as a legitimate 
+    module.
+
+    Args:
+    namespace: The name of the new namespace to create. This name is 
+        used to isolate the created module and its configurations from 
+        other modules or namespaces.
+
+    Returns:
+    module: A new module object that represents the isolated namespace. 
+        This module is a clone of the pytzen package, but with its 
+        MetaType.NAMESPACE attribute set to the given namespace name, 
+        allowing for isolated configuration and operation within this 
+        new context.
+    """
 
     pytzen = importlib.util.find_spec('pytzen')
     vars()[namespace] = importlib.util.module_from_spec(pytzen)
@@ -25,15 +50,15 @@ class MetaType(type):
     meta_attr attribute to the class and initializing the ProtoType 
     class.
 
-    Class Attributes:
-        DIR: Output path where the config.json must be located.
+    Attributes:
+    NAMESPACE: Class attribute set to the given namespace name.
     
     Methods:
         __new__: Adds the meta_attr attribute to the class.
         __call__: Initializes the ProtoType class.
         log: Adds a message to the log attribute.
         store: Adds a value to the store attribute.
-        close: Closes the class and stores the data.
+        close: Closes the namespace and stores the data.
     """
 
     NAMESPACE: str = None
