@@ -1,9 +1,49 @@
-> PYTZEN is designed for developers and data scientists to sketch out data pipelines and delve into metaprogramming. Primarily designed for the Proof of Concept (POC) and Minimum Viable Product (MVP) stages, PYTZEN stands out by facilitating inheritance-driven development of data processing workflows and offering a practical arena for exploring metaprogramming. This experimental tool aims for educational purposes, encouraging users to learn through experimentation and application. Whether for prototyping or learning advanced Python features, PYTZEN offers structured yet flexible experimentation for both innovation and education.
+> PYTZEN is designed for developers and data scientists to sketch out data pipelines and delve into metaprogramming. Primarily designed for the Proof of Concept (POC) and Minimum Viable Product (MVP) stages, the package stands out by facilitating inheritance-driven development of data processing workflows and offering a practical arena for exploring metaprogramming. This experimental tool aims for educational purposes, encouraging users to learn through experimentation and application. Whether for prototyping or learning advanced Python features, PYTZEN offers structured yet flexible experimentation for both innovation and education.
 
-## Inherited Automatic Features
-- JSON configuration attributes
-- @dataclass features
-- Attributes values optionally stored in JSON
+## Features
+
+### Namespaces
+The pipeline is isolated as a microservice application's code, with its own `module` functionality. By creating a namespace, you are cloning the package, not just creating an alias. `pytzen` will be the original namespace from which your new isolated source will come from.
+```python
+import pytzen # This namespace is the source pattern and cannot be used
+pytzen.DIR = 'path/to/your/docs/folder' # Default to `os.getcwd()`
+# Namespaces samples where `pytzen` has a clonned instance for each:
+extract = pytzen.new_namespace('extract')
+transform = pytzen.new_namespace('transform')
+load = pytzen.new_namespace('load')
+```
+
+### `@dataclass` syntax and class documentation
+PYTZEN metaprogramming benefits from the `__init__` suppression in the `@dataclass` decorator, among other features, so its usage is mandatory.
+```python
+from dataclasses import dataclass
+@dataclass
+class DataClassFeatures:
+    attribute: str = 'Milk and honey attributes.'
+    number: int = 137
+```
+
+### Attributes available in all namespaces from a single `config.JSON` file
+The `config.json` file must be placed in the `pytzen.DIR` folder.
+```python
+@dataclass
+class AttributesFromConfig(extract.ProtoType):
+    def get_config(self):
+        print(self.config.milky_attribute)
+```
+
+### Attributes values optionally stored in JSON
+The JSON file will be put in the `pytzen.DIR` folder prepended by the `namespace`. For the `extract` service it will be `extract_store.json`.
+```python
+@dataclass
+class AttributesKeeper(extract.ProtoType):
+    def save_it(self):
+        milk_for_tommorrow = 'White and cold.'
+        sweet_bottles = {'honey': 7, 'milk': 11}
+        self.store('milk', milk_for_tomorrow)
+        self.store('bottles', sweet_bottles)
+```
+
 - Logger events optionally stored in JSON (whether printed or not)
 - Documentation for each class is stored in JSON
 - Attributes are immutable
