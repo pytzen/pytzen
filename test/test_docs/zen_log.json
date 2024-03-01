@@ -1,0 +1,6 @@
+{
+    "2024-03-01 14:33:10.605762": "I am a log message.",
+    "2024-03-01 14:33:10.606762": "If you don't want it to be printed, set 'stdout' to 'False'.",
+    "2024-03-01 14:33:10.606930": "I am a log message again.",
+    "2024-03-01 14:33:10.606952": "My pipeline did something."
+}

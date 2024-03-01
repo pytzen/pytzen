@@ -1,0 +1,12 @@
+{
+    "__main__.DerivedClass": {
+        "attributes": {
+            "number": "int"
+        },
+        "methods": [
+            "log",
+            "store",
+            "close"
+        ]
+    }
+}

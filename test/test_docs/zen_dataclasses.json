@@ -1,0 +1,114 @@
+{
+    "__main__.DerivedClass": {
+        "attributes": {
+            "number": "int"
+        },
+        "methods": [
+            "do",
+            "log",
+            "store",
+            "close"
+        ]
+    },
+    "__main__.DynamicAttribute": {
+        "attributes": {
+            "n": "int"
+        },
+        "methods": [
+            "set_dynamically",
+            "get_data",
+            "log",
+            "store",
+            "close"
+        ]
+    },
+    "__main__.DataClassSample": {
+        "attributes": {
+            "m": "int"
+        },
+        "methods": [
+            "log",
+            "store",
+            "close"
+        ]
+    },
+    "__main__.RetrieveSharedData": {
+        "attributes": {},
+        "methods": [
+            "get_data",
+            "change_attribute",
+            "log",
+            "store",
+            "close"
+        ]
+    },
+    "__main__.Container": {
+        "attributes": {
+            "nested": "Nested"
+        },
+        "methods": [
+            "print_nested",
+            "log",
+            "store",
+            "close"
+        ]
+    },
+    "__main__.UseNested": {
+        "attributes": {},
+        "methods": [
+            "print_nested",
+            "log",
+            "store",
+            "close"
+        ]
+    },
+    "__main__.ConfigVariableSample": {
+        "attributes": {},
+        "methods": [
+            "print_configuration_variable",
+            "log",
+            "store",
+            "close"
+        ]
+    },
+    "__main__.KeepLog": {
+        "attributes": {
+            "some_message": "str"
+        },
+        "methods": [
+            "log_it",
+            "log",
+            "store",
+            "close"
+        ]
+    },
+    "__main__.KeepLog2": {
+        "attributes": {
+            "some_message2": "str"
+        },
+        "methods": [
+            "log_it",
+            "log",
+            "store",
+            "close"
+        ]
+    },
+    "__main__.KeepResultsStored": {
+        "attributes": {},
+        "methods": [
+            "store_results",
+            "log",
+            "store",
+            "close"
+        ]
+    },
+    "__main__.KeepResultsStored2": {
+        "attributes": {},
+        "methods": [
+            "store_results",
+            "log",
+            "store",
+            "close"
+        ]
+    }
+}

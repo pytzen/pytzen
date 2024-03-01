@@ -2,9 +2,21 @@ import json
 import sys
 import importlib.util
 import os
-from types import ModuleType
 from datetime import datetime
 from dataclasses import dataclass, field
+
+
+
+DIR = os.getcwd()
+def new_namespace(namespace: str):
+
+    pytzen = importlib.util.find_spec('pytzen')
+    vars()[namespace] = importlib.util.module_from_spec(pytzen)
+    pytzen.loader.exec_module(vars()[namespace])
+    sys.modules[namespace] = vars()[namespace]
+    vars()[namespace].MetaType.NAMESPACE = namespace
+
+    return vars()[namespace]
 
 
 
@@ -23,7 +35,8 @@ class MetaType(type):
         store: Adds a value to the store attribute.
         close: Closes the class and stores the data.
     """
-    DIR = None
+
+    NAMESPACE: str = None
     def __new__(cls, name, bases, attrs) -> type:
         """Adds log, store and close methods to the class.
         
@@ -55,7 +68,7 @@ class MetaType(type):
         Returns:
             object: Instance of the derived class.
         """
-        ProtoType.DIR = MetaType.DIR
+        
         ProtoType.__init__(self)
 
         return super().__call__(*args, **kwargs)
@@ -106,24 +119,17 @@ class MetaType(type):
             None
         """
 
+        namespace = MetaType.NAMESPACE
         pack = {
-            'dataclasses.json': ProtoType.data.classes,
-            'log.json': ProtoType.data.log,
-            'store.json': ProtoType.data.store,
+            f'{namespace}_dataclasses.json': ProtoType.data.classes,
+            f'{namespace}_log.json': ProtoType.data.log,
+            f'{namespace}_store.json': ProtoType.data.store,
         }
         for k, v in pack.items():
-            path = os.path.join(MetaType.DIR, k)
-            with open(path, 'w') as json_file:
-                json.dump(v, json_file, indent=4)
-    
-
-
-def new_namespace(namespace: str):
-    pytzen = importlib.util.find_spec('pytzen')
-    vars()[namespace] = importlib.util.module_from_spec(pytzen)
-    pytzen.loader.exec_module(vars()[namespace])
-    sys.modules[namespace] = vars()[namespace]
-    return vars()[namespace]
+            if v:
+                path = os.path.join(sys.modules['pytzen'].DIR, k)
+                with open(path, 'w') as json_file:
+                    json.dump(v, json_file, indent=4)
 
 
 
@@ -143,7 +149,7 @@ class ProtoType(metaclass=MetaType):
         __init__: Initializes the class.
         __setattr__: Adds an attribute to the class.
     """
-    DIR = None
+
     def __init__(self) -> None:
         """Initializes the class. It is called when the derived class 
         is instantiated by the controled behavior of 'MetaType'. 
@@ -154,7 +160,7 @@ class ProtoType(metaclass=MetaType):
         self.class_path = f'{self.__module__}.{self.__name__}'
 
         if not hasattr(ProtoType, 'config'):
-            path = os.path.join(ProtoType.DIR, 'config.json')
+            path = os.path.join(sys.modules['pytzen'].DIR, 'config.json')
             with open(path, 'r') as json_file:
                 config = json.load(json_file)
             ProtoType.config = type('ConfigurationFile', (), config)

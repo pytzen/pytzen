@@ -1,0 +1,10 @@
+{
+    "some_results": {
+        "result": 3,
+        "diff": 4
+    },
+    "some_results2": {
+        "result2": 3,
+        "diff2": 4
+    }
+}
