@@ -1,4 +1,4 @@
-name: pytzen-package-to-pypi
+name: Deploy to PyPI
 
 on:
   release:
@@ -10,10 +10,10 @@ jobs:
 
     steps:
     - name: Check out the repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3 # Updated to the latest version
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v3 # Updated to the latest version
       with:
         python-version: '3.x'
 
