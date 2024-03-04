@@ -29,6 +29,11 @@ The `config.json` file must be placed in the `pytzen.DIR` folder. Its contents a
 class AttributesFromConfig(extract.ProtoType):
     def get_config(self):
         print(self.config.milky_attribute)
+
+@dataclass
+class SameConfigAnotherNamespace(transform.ProtoType):
+    def get_config(self):
+        print(self.config.milky_attribute)
 ```
 
 ### Attributes value optionally stored in JSON
